@@ -12,6 +12,9 @@ Built with local-first AI components, Prism leverages Ollama-powered LLMs, vecto
 
 ## Why Prism?
 
+> [!NOTE]
+> The primary usefulness of this project lies in the fact that developers sometimes have to work on projects with massive documentation, codebase and supporting artifacts with no context other than the primary purpose of that project. Its basically the job description of every Model Review Management team in BFSI industry.
+
 Large projects often contain information scattered across:
 
 * Technical documentation
@@ -195,11 +198,6 @@ prism/
 │   │
 │   └── main.py
 │
-├── docker/
-│   ├── frontend/
-│   ├── backend/
-│   └── ollama/
-│
 ├── data/
 │   ├── uploads/
 │   ├── processed/
@@ -207,6 +205,7 @@ prism/
 │
 ├── tests/
 │
+|── Dockerfile
 ├── docker-compose.yml
 ├── .env
 ├── requirements.txt
@@ -220,9 +219,9 @@ prism/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/prism.git
+git clone https://github.com/quickSilverShanks/Prism.git
 
-cd prism
+cd Prism
 ```
 
 ### Start Services
@@ -280,5 +279,3 @@ Ollama          : localhost:11434
 Prism aims to become an intelligent project companion that transforms fragmented project artifacts into an interactive knowledge system.
 
 Instead of searching through hundreds of files, users can simply ask questions and receive contextual, explainable answers grounded in project evidence.
-
-The primary usefulness of this project lies in the fact that developers sometimes have to work on projects with massive documentation, codebase and supporting artifacts with no context other than the primary purpose of that project. Its basically the job description of every Model Review Management team in BFSI industry.

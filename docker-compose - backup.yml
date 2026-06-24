@@ -1,0 +1,154 @@
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: prism-backend
+
+    command: >
+      uvicorn backend.main:app
+      --host 0.0.0.0
+      --port 8000
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - .env
+
+    volumes:
+      - .:/app
+      - ./data:/app/data
+
+    depends_on:
+      - postgres
+      - milvus
+      - ollama
+
+    networks:
+      - prism-network
+
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: prism-frontend
+
+    command: >
+      streamlit run frontend/app.py
+      --server.address=0.0.0.0
+      --server.port=8501
+
+    ports:
+      - "8501:8501"
+
+    env_file:
+      - .env
+
+    volumes:
+      - .:/app
+      - ./data:/app/data
+
+    depends_on:
+      - backend
+
+    networks:
+      - prism-network
+
+
+  postgres:
+    image: postgres:17
+    container_name: prism-postgres
+
+    env_file:
+      - .env
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+    networks:
+      - prism-network
+
+
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.18
+    container_name: prism-etcd
+
+    command:
+      - etcd
+      - --advertise-client-urls=http://0.0.0.0:2379
+      - --listen-client-urls=http://0.0.0.0:2379
+
+    networks:
+      - prism-network
+
+
+  minio:
+    image: minio/minio
+    container_name: prism-minio
+
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+
+    command: minio server /data
+
+    ports:
+      - "9000:9000"
+
+    volumes:
+      - ./data/minio:/data
+
+    networks:
+      - prism-network
+
+
+  milvus:
+    image: milvusdb/milvus:v2.5.8
+    container_name: prism-milvus
+
+    command: ["milvus", "run", "standalone"]
+
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+
+    depends_on:
+      - etcd
+      - minio
+
+    volumes:
+      - ./data/milvus:/var/lib/milvus
+
+    networks:
+      - prism-network
+
+
+  ollama:
+    image: ollama/ollama
+    container_name: prism-ollama
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ./data/ollama:/root/.ollama
+
+    networks:
+      - prism-network
+
+
+networks:
+  prism-network:
+    driver: bridge

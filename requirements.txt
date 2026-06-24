@@ -1,0 +1,13 @@
+fastapi
+streamlit
+langchain
+langgraph
+langchain-ollama
+pymilvus
+sqlalchemy
+psycopg2-binary
+python-dotenv
+pandas
+numpy
+docling
+rank-bm25
