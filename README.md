@@ -143,73 +143,78 @@ Prism addresses this challenge by creating a conversational interface that enabl
 ```text
 prism/
 │
-├── frontend/
-│   ├── pages/
-│   ├── components/
-│   ├── services/
-│   ├── utils/
-│   └── app.py
+├── frontend/                      # Streamlit web application
+│   ├── pages/                     # Individual UI pages
+│   ├── components/                # Reusable UI components
+│   ├── services/                  # Backend API clients
+│   ├── utils/                     # Frontend helper functions
+│   └── app.py                     # Streamlit entry point
 │
-├── backend/
+├── backend/                       # FastAPI backend
 │   ├── api/
-│   │   ├── routes/
-│   │   └── dependencies/
+│   │   ├── routes/                # API endpoints
+│   │   └── dependencies/          # Shared API dependencies
 │   │
 │   ├── core/
-│   │   ├── config.py
-│   │   ├── logging.py
-│   │   └── security.py
+│   │   ├── config.py              # Application configuration
+│   │   ├── logging.py             # Logging setup
+│   │   └── security.py            # Security utilities
 │   │
 │   ├── ingestion/
-│   │   ├── document_loader/
-│   │   ├── code_loader/
-│   │   ├── excel_loader/
-│   │   └── image_loader/
+│   │   ├── document_loader/       # Document ingestion
+│   │   ├── code_loader/           # Source code ingestion
+│   │   ├── excel_loader/          # Excel ingestion
+│   │   └── image_loader/          # Image/OCR ingestion
 │   │
 │   ├── chunking/
-│   │   ├── document_chunker.py
-│   │   ├── code_chunker.py
-│   │   └── metadata_extractor.py
+│   │   ├── document_chunker.py    # Document chunking
+│   │   ├── code_chunker.py        # Code chunking
+│   │   └── metadata_extractor.py  # Metadata extraction
 │   │
 │   ├── embeddings/
-│   │   └── embedding_service.py
+│   │   └── embedding_service.py   # Embedding generation
 │   │
 │   ├── vectorstore/
-│   │   └── milvus_client.py
+│   │   └── milvus_client.py       # Milvus operations
 │   │
 │   ├── database/
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   └── postgres.py
+│   │   ├── models/                # ORM models
+│   │   ├── repositories/          # Data access layer
+│   │   └── postgres.py            # PostgreSQL connection
 │   │
 │   ├── retrieval/
-│   │   ├── hybrid_search.py
-│   │   ├── reranker.py
-│   │   └── context_builder.py
+│   │   ├── hybrid_search.py       # Hybrid retrieval
+│   │   ├── reranker.py            # Result reranking
+│   │   └── context_builder.py     # LLM context assembly
 │   │
 │   ├── agents/
-│   │   ├── project_analyst/
-│   │   ├── code_reviewer/
-│   │   ├── document_reviewer/
-│   │   └── workflow_graph.py
+│   │   ├── project_analyst/       # Project understanding agent
+│   │   ├── code_reviewer/         # Code analysis agent
+│   │   ├── document_reviewer/     # Document review agent
+│   │   └── workflow_graph.py      # LangGraph workflow
 │   │
 │   ├── llm/
-│   │   └── ollama_client.py
+│   │   └── ollama_client.py       # Ollama client
 │   │
-│   └── main.py
+│   └── main.py                    # FastAPI entry point
 │
-├── data/
-│   ├── uploads/
-│   ├── processed/
-│   └── temp/
+├── data/                          # Persistent application data
+│   ├── uploads/                   # Uploaded project files
+│   ├── processed/                 # Processed artifacts & chunks
+│   ├── temp/                      # Temporary files
+│   ├── etcd/                      # etcd persistent storage
+│   ├── milvus/                    # Milvus vector data
+│   ├── minio/                     # MinIO object storage
+│   ├── ollama/                    # Downloaded Ollama models
+│   └── postgres/                  # PostgreSQL database files
 │
-├── tests/
+├── tests/                         # Unit & integration tests
 │
-|── Dockerfile
-├── docker-compose.yml
-├── .env
-├── requirements.txt
-└── README.md
+├── Dockerfile                     # Python application image
+├── docker-compose.yml             # Multi-container orchestration
+├── .env                           # Environment variables
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
 ```
 
 ---
@@ -248,29 +253,12 @@ Ollama          : localhost:11434
 
 ## Example Questions
 
-### Project Understanding
-
-* What is the objective of this project?
-* Summarize the project architecture.
-* Explain the data flow.
-
-### Code Analysis
-
-* Explain the prediction pipeline.
-* Where is feature engineering implemented?
-* Which modules call this function?
-
-### Governance Review
-
-* What assumptions does this model make?
-* Summarize validation findings.
-* Are there any documented limitations?
-
-### Knowledge Discovery
-
-* Which files discuss loss forecasting?
-* Show all references to feature selection.
-* Summarize business requirements.
+| **Category**                 | **Example Questions**                                                                                                        |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **📋 Project Understanding** | • What is the objective of this project?<br>• Summarize the project architecture.<br>• Explain the data flow.                |
+| **💻 Code Analysis**         | • Explain the prediction pipeline.<br>• Where is feature engineering implemented?<br>• Which modules call this function?     |
+| **🛡️ Governance Review**    | • What assumptions does this model make?<br>• Summarize validation findings.<br>• Are there any documented limitations?      |
+| **🔍 Knowledge Discovery**   | • Which files discuss loss forecasting?<br>• Show all references to feature selection.<br>• Summarize business requirements. |
 
 ---
 
@@ -279,3 +267,18 @@ Ollama          : localhost:11434
 Prism aims to become an intelligent project companion that transforms fragmented project artifacts into an interactive knowledge system.
 
 Instead of searching through hundreds of files, users can simply ask questions and receive contextual, explainable answers grounded in project evidence.
+
+---
+
+<div align="center">
+If you like this project, please consider giving it a ⭐️ <b>star</b> to help others discover it. 
+
+[![GitHub Stars](https://img.shields.io/github/stars/quickSilverShanks/Prism.svg?style=social)](https://github.com/quickSilverShanks/Prism/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/quickSilverShanks/Prism.svg?style=social)](https://github.com/quickSilverShanks/Prism/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/quickSilverShanks/Prism.svg)](https://github.com/quickSilverShanks/Prism/issues)
+</div>
+<hr>
+
+<div align="center">
+Please note this is not open for contributions yet as basic features are still being added in, but feel free to share improvement suggestions or 🍴 <b>fork</b> it and explore the code!
+</div>

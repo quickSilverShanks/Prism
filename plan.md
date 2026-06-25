@@ -1,6 +1,6 @@
 ## Plan
 
-This file contains a rough scratchpad meant to contain the plans and milestones for the development of this project.
+This file has a scratchpad meant to contain the working plans and thoughts, milestones to track the development of this project and a section on developer notes that mentions frequently used code snippets, design choices and their rationale for future reference.
 
 The original work is in AWS Bedrock with milvus db, s3 bucket, lambda functions being used. This repo aims to present an open-source alternative of the commercial product with local llm models, postgresql, milvus and a forward looking architecture as compared the original project it takes inspiration from.
 
@@ -17,10 +17,42 @@ run required models to begin with as below
 
 ### Milestones
 
-- [] initial/minimal docker setup with local mounts for all type of data
-- [] PDF Ingest script (indexing to milvus)
-- [] PDF Ingest script (output to postgresql)
-- [] Expose FastAPI endpoint to perform chunking
-- [] Add Streamlit page to upload file from user and ingest
-- [] Add second tab in frontend to view ingested data
-- [] Perform basic eda on ingested data and show in streamlit tab
+- [] Initial Docker setup with persistent local mounts
+- [] PDF ingestion pipeline (Milvus indexing)
+- [] PDF ingestion pipeline (PostgreSQL metadata)
+- [] FastAPI endpoint for document chunking
+- [] Streamlit page for document upload & ingestion
+- [] Streamlit page to browse ingested documents
+- [] Basic EDA dashboard for ingested data
+- [] Streamlit page with general chat interface
+- [] Add postgres db with interaction logs
+- [] Hybrid search (Dense + Sparse retrieval) with reranking
+- [] Langchain based conversational RAG over PDFs
+- [] LangGraph based agentic rag workflow
+- [] Add required test scripts
+- [] Release v1.0
+
+## Milestones (Future Updates)
+
+* [ ] Multi-document project understanding and metadata filter update
+* [ ] Codebase ingestion
+* [ ] Conversational RAG over source code
+* [ ] LangGraph agent workflow update
+* [ ] Excel ingestion support
+* [ ] Image/OCR ingestion support (multimodal rag)
+* [ ] Project analytics dashboard
+* [ ] Docker production optimization
+* [ ] Unit & integration tests
+* [ ] CI/CD pipeline
+* [ ] Release v2.0
+
+### Developer Notes
+
+When user uploads the document:
+> load_document() → chunk_document() → save_chunks_to_postgres() → generate_embeddings() → store_in_milvus() → save_metadata_to_postgres()
+
+- uploaded document: data/uploads/project.pdf
+- ingestion/document_loader/pdf2markdown.py (output stored in data/processed)
+- chunking/document_chunker.py
+- embeddings/embedding_service.py
+- vectorstore/milvus_client.py
