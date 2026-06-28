@@ -30,9 +30,9 @@ run required models to begin with as below
 - [] Langchain based conversational RAG over PDFs
 - [] LangGraph based agentic rag workflow
 - [] Add required test scripts
-- [] Release v1.0
+- [] Release v1.0 (MVP)
 
-## Milestones (Future Updates)
+### Milestones (Future Updates)
 
 * [ ] Multi-document project understanding and metadata filter update
 * [ ] Codebase ingestion
@@ -52,7 +52,45 @@ When user uploads the document:
 > load_document() → chunk_document() → save_chunks_to_postgres() → generate_embeddings() → store_in_milvus() → save_metadata_to_postgres()
 
 - uploaded document: data/uploads/project.pdf
-- ingestion/document_loader/pdf2markdown.py (output stored in data/processed)
+- ingestion/document_loader/pdf2md.py (output stored in data/processed)
+- [optional, planned for later use] ingestion/document_loader/pdf2md_multimodal.py (output stored in data/processed)
 - chunking/document_chunker.py
-- embeddings/embedding_service.py
-- vectorstore/milvus_client.py
+- embeddings/generate_embeddings.py
+- vectorstore/milvus_client.py (will have the milvus specific helper codes)
+
+sample usage for later
+
+```python
+# ingestion/document_loader/pdf2md.py
+from backend.ingestion.document_loader.pdf_parser import PDFParser
+
+parser = PDFParser(
+    pdf_path="data/uploads/model_validation.pdf",
+    output_root="data/processed"
+)
+
+parser.parse()
+
+
+# chunking/document_chunker.py
+from backend.chunking.document_chunker import DocumentChunker
+
+chunker = DocumentChunker(
+    "data/processed/model_validation"
+)
+
+df = chunker.chunk()
+```
+
+```sql
+-- since metadata is JSONB, below would be possible
+SELECT *
+FROM document_chunks
+WHERE metadata ->> 'page' = '15';
+```
+
+```bash
+# executing db initialization from within docker
+docker exec -it prism-postgres \
+psql -U prism -d postgres -f /path/to/init.sql
+```

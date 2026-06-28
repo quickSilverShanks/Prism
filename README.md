@@ -42,51 +42,14 @@ Prism addresses this challenge by creating a conversational interface that enabl
 
 ## Key Features
 
-### Document Intelligence
-
-* PDF ingestion
-* Markdown support
-* Semantic chunking
-* Metadata-aware retrieval
-
-### Code Intelligence
-
-* Repository ingestion
-* Multi-language source code support
-* Function-level indexing
-* Dependency awareness
-* Code explanation and walkthroughs
-
-### Agentic RAG
-
-* Multi-step reasoning workflows
-* Context-aware retrieval
-* Source attribution
-* Conversational memory
-* Project-wide knowledge synthesis
-
-### Local-First AI
-
-* Ollama-powered LLMs
-* Local embeddings
-* Self-hosted vector database
-* No external API dependency required
-
-### Future Roadmap
-
-* Excel and CSV intelligence
-* Image understanding
-* Architecture diagram analysis
-* Automated project reviews
-* Code Annotations and neo4j graph visualization
-* Multi-agent pipelines
-  * Planner Agent → understands user intent
-  * Retriever Agent → decides which knowledge sources to query
-  * Code Analyst Agent → code reasoning
-  * Document Analyst Agent → documentation reasoning
-  * Governance Agent → validation/model review
-  * Report Generator Agent → creates project summaries
-* Project health dashboards
+| **Feature Area**              | **Capabilities**                                                                                                                                                                                                                                            |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **📄 Document Intelligence**  | PDF ingestion • Markdown support • Semantic chunking • Metadata-aware retrieval                                                                                                                                                                             |
+| **💻 Code Intelligence**      | Repository ingestion • Multi-language support • Function-level indexing • Dependency awareness • Code explanation & walkthroughs                                                                                                                            |
+| **🤖 Agentic RAG**            | Multi-step reasoning • Context-aware retrieval • Source attribution • Conversational memory • Project-wide knowledge synthesis                                                                                                                              |
+| **🏠 Local-First AI**         | Ollama-powered LLMs • Local embeddings • Self-hosted Milvus • No external API dependency                                                                                                                                                                    |
+| **🗺️ Future Roadmap**        | Excel & CSV support • Image understanding • Architecture diagram analysis • Automated project reviews • Code annotations & Neo4j graph visualization • Project health dashboards • Multi Agent Pipelines                                                                            |
+| **🧠 Multi Agent Pipeline** | **Planner** → Intent understanding<br>**Retriever** → Knowledge source selection<br>**Code Analyst** → Code reasoning<br>**Document Analyst** → Documentation reasoning<br>**Governance** → Validation & review<br>**Report Generator** → Project summaries |
 
 ---
 
