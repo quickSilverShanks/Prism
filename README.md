@@ -170,6 +170,7 @@ prism/
 │   ├── minio/                     # MinIO object storage
 │   ├── ollama/                    # Downloaded Ollama models
 │   └── postgres/                  # PostgreSQL database files
+│   └── cloudbeaver/               # CloudBeaver usage data for postgresdb
 │
 ├── tests/                         # Unit & integration tests
 │
@@ -202,15 +203,27 @@ docker compose up --build
 
 ```text
 Streamlit UI    : http://localhost:8501
-
 FastAPI Docs    : http://localhost:8000/docs
-
 Milvus          : localhost:19530
-
 PostgreSQL      : localhost:5432
-
+CloudBeaver     : http://localhost:8978
+Attu            : http://localhost:3000
 Ollama          : localhost:11434
 ```
+
+Since CloudBeaver is on the same Docker network, use postgres, not localhost. Once everything is up, create a PostgreSQL connection in CloudBeaver with below credentials:
+| Property | Value                                |
+| -------- | ------------------------------------ |
+| Host     | `postgres`                           |
+| Port     | `5432`                               |
+| Database | `prism`                              |
+| Username | `POSTGRES_USER` from your `.env`     |
+| Password | `POSTGRES_PASSWORD` from your `.env` |
+
+Connect to Attu using:
+| Property | Value          |
+| -------- | -------------- |
+| Address  | `milvus:19530` |
 
 ---
 

@@ -15,6 +15,8 @@ Docker compose has below codes that need prepared minimally to begin with:
 run required models to begin with as below
 - docker exec -it prism-ollama ollama pull qwen3:8b
 
+At initial stage, create json outputs instead of directly writing to postgresdb. Once chunking and vectorizing works fine, start adding postgres elements for every relevant output. Until then. schema and db initialization codes reamin unused.
+
 ### Milestones
 
 - [] Initial Docker setup with persistent local mounts

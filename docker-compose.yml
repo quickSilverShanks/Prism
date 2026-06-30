@@ -166,6 +166,40 @@ services:
       - prism-network
 
 
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:25.1.0
+    container_name: prism-cloudbeaver
+
+    ports:
+      - "8978:8978"
+
+    volumes:
+      - ./data/cloudbeaver:/opt/cloudbeaver/workspace
+
+    depends_on:
+      - postgres
+
+    networks:
+      - prism-network
+
+
+  attu:
+    image: zilliz/attu:v2.6.5
+    container_name: prism-attu
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      MILVUS_URL: milvus:19530
+
+    depends_on:
+      - milvus
+
+    networks:
+      - prism-network
+
+
   ollama:
     image: ollama/ollama
     container_name: prism-ollama
