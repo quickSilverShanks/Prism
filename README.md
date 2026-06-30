@@ -174,6 +174,9 @@ prism/
 │
 ├── tests/                         # Unit & integration tests
 │
+├── archive/                       # Shelved codes and scripts
+├── static/                        # Functionally non-essential files
+│
 ├── Dockerfile                     # Python application image
 ├── docker-compose.yml             # Multi-container orchestration
 ├── .env                           # Environment variables

@@ -71,17 +71,31 @@ parser = PDFParser(
     output_root="data/processed"
 )
 
-parser.parse()
+docs = parser.parse()
 
 
 # chunking/document_chunker.py
 from backend.chunking.document_chunker import DocumentChunker
 
 chunker = DocumentChunker(
-    "data/processed/model_validation"
+    data_dir="data/processed",
+    project_name="model_validation"
 )
 
-df = chunker.chunk()
+final_split_docs = chunker.chunk()
+
+
+# vectorstore/vectorize_milvusdb.py
+from backend.vectorstore.vectorize_milvusdb import Vectorizer
+
+vectorizer = Vectorizer(
+    project_name="model_validation",
+    db_name="prism",
+    collection_name="document_chunks",
+    replace_collection=False
+)
+
+vectorizer.vectorize(split_docs=final_split_docs)
 ```
 
 ```sql
