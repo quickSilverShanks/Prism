@@ -13,10 +13,11 @@ from langchain_text_splitters import (
 
 class DocumentChunker:
 
-    def __init__(self, data_dir: str, project_name: str):
+    def __init__(self, project_name: str, data_dir: str, export:bool = True):
 
         self.data_dir = Path(data_dir)
         self.project_name = project_name
+        self.export = export
 
         self.markdown_dir = self.data_dir / "markdown"
         self.markdown_file = self.markdown_dir / f"{self.project_name}.md"
@@ -119,26 +120,27 @@ class DocumentChunker:
 
 
         # export final split docs
-        rows = []
-        for idx, chunk in enumerate(final_split_docs):
-            rows.append(
-                {
-                    "chunk_id": idx,
-                    "content": chunk.page_content,
-                    "text_length": len(chunk.page_content),
-                    "source": self.project_name,
-                    "header_1": chunk.metadata.get("Header_1", ""),
-                    "header_2": chunk.metadata.get("Header_2", ""),
-                    "header_3": chunk.metadata.get("Header_3", ""),
-                    "header_4": chunk.metadata.get("Header_4", ""),
-                    "header_5": chunk.metadata.get("Header_5", ""),
-                    "metadata": chunk.metadata,     # putting entire metadata together as well, for brevity
-                }
-            )
-        df = pd.DataFrame(rows)
+        if self.export:
+            rows = []
+            for idx, chunk in enumerate(final_split_docs):
+                rows.append(
+                    {
+                        "chunk_id": idx,
+                        "content": chunk.page_content,
+                        "text_length": len(chunk.page_content),
+                        "source": self.project_name,
+                        "header_1": chunk.metadata.get("Header_1", ""),
+                        "header_2": chunk.metadata.get("Header_2", ""),
+                        "header_3": chunk.metadata.get("Header_3", ""),
+                        "header_4": chunk.metadata.get("Header_4", ""),
+                        "header_5": chunk.metadata.get("Header_5", ""),
+                        "metadata": chunk.metadata,     # putting entire metadata together as well, for brevity
+                    }
+                )
+            df = pd.DataFrame(rows)
 
-        output_file = self.output_dir / f"{self.project_name}.json"
-        df.to_json(output_file, orient="records", indent=4)
-        # print(f"Saved {len(df)} chunks to {output_file}.")
+            output_file = self.output_dir / f"{self.project_name}.json"
+            df.to_json(output_file, orient="records", indent=4)
+            # print(f"Saved {len(df)} chunks to {output_file}.")
 
         return final_split_docs

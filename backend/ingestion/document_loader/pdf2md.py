@@ -19,10 +19,11 @@ class PDFParser:
     Parses a PDF into cleaned Markdown and extracts tables, figures and metadata for downstream processing.
     """
 
-    def __init__(self, pdf_path: str, output_root: str):
+    def __init__(self, filename: str, input_path: str, output_root: str):
 
-        self.pdf_path = Path(pdf_path)
-        self.project_name = self.pdf_path.stem
+        self.input_path = Path(input_path)
+        self.project_name = filename
+        self.pdf_path = self.input_path / f"{self.project_name}.pdf"
         self.output_root = Path(output_root) / self.project_name
 
         self.markdown_dir = self.output_root / "markdown"

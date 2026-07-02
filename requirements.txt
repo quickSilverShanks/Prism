@@ -1,4 +1,6 @@
 fastapi
+unicorn
+pydantic
 streamlit
 langchain
 langgraph

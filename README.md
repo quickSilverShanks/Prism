@@ -176,6 +176,7 @@ prism/
 │
 ├── archive/                       # Shelved codes and scripts
 ├── static/                        # Functionally non-essential files
+├── health/                        # Health check status
 │
 ├── Dockerfile                     # Python application image
 ├── docker-compose.yml             # Multi-container orchestration
